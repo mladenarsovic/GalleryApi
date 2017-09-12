@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
-use App\Gallery;
 use Illuminate\Http\Request;
+use App\User;
 
-class GalleryController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +12,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return Gallery::all();
+        return User::all();
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +23,6 @@ class GalleryController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,55 +31,51 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        return Gallery::create($request::all());
+        return User::create($request::all());
     }
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $id)
+    public function show(User $id)
     {
-        return Gallery::findOrFail($id);
+        return User::findOrFail($id);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gallery $id)
+    public function edit(User $id)
     {
-        
+        //
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $id)
+    public function update(Request $request,User $id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->update($request->all());
-        return $gallery;
+        $users = User::findOrFail($id);
+        $users->update($request->all());
+        return $users;
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $id)
+    public function destroy(User $id)
     {
-        $gallery = User::findOrFail($id);
-        $gallery->delete();
-        return $gallery;
+        $users = User::findOrFail($id);
+        $users->delete();
+        return $users;
     }
 }

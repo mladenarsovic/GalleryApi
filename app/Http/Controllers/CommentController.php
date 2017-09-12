@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Gallery;
+use App\Comment;
 use Illuminate\Http\Request;
 
-class GalleryController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return Gallery::all();
+        return Comment::all();
     }
 
     /**
@@ -35,55 +35,53 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        return Gallery::create($request::all());
+        return Comment::create($request::all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $id)
+    public function show(Comment $id)
     {
-        return Gallery::findOrFail($id);
+        return Comment::findOrFail($id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gallery $id)
+    public function edit(Comment $id)
     {
-        
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gallery  $gallery
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $id)
+    public function update(Request $request, Comment $id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->update($request->all());
-        return $gallery;
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $id)
+    public function destroy(Comment $id)
     {
-        $gallery = User::findOrFail($id);
-        $gallery->delete();
-        return $gallery;
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+        return $comment;
     }
 }

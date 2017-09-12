@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Gallery;
+use App\Image;
 use Illuminate\Http\Request;
 
-class GalleryController extends Controller
+class ImagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return Gallery::all();
+        return Image::all();
     }
 
     /**
@@ -35,7 +35,7 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        return Gallery::create($request::all());
+        return Image::create($request::all());
     }
 
     /**
@@ -44,7 +44,7 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $id)
+    public function show(Image $id)
     {
         return Gallery::findOrFail($id);
     }
@@ -55,9 +55,9 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gallery $id)
+    public function edit(Image $id)
     {
-        
+        //
     }
 
     /**
@@ -67,11 +67,9 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $id)
+    public function update(Request $request, Image $id)
     {
-        $gallery = Gallery::findOrFail($id);
-        $gallery->update($request->all());
-        return $gallery;
+        //
     }
 
     /**
@@ -80,10 +78,10 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $id)
+    public function destroy(Image $id)
     {
-        $gallery = User::findOrFail($id);
-        $gallery->delete();
-        return $gallery;
+        $image = Image::findOrFail($id);
+        $image->delete();
+        return $image;
     }
 }
