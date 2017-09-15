@@ -14,7 +14,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return Gallery::all();
+        return Gallery::with('images','user')->get();
     }
 
     /**
@@ -33,7 +33,7 @@ class GalleryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Galleries $request)
     {
         return Gallery::create($request::all());
     }
@@ -44,9 +44,9 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $id)
+    public function show(Gallery $gallery)
     {
-        return Gallery::findOrFail($id);
+        return $gallery->load(['images', 'user']);
     }
 
     /**

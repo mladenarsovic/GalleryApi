@@ -17,5 +17,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('login', 'Auth\LoginController@Authenticate');
-Route::middleware('jwt')->resource('galleries', 'GalleryController');
+
+Route::post('login', 'Auth\LoginController@authenticate');
+
+Route::post('register','Auth\RegisterController@create');
+
+Route::resource('galleries','GalleryController');
+
+
+
+// Route::get('galleries/{id}', 'GalleriesController@show');
+
+// Route::get('/galleries', 'GalleryController@index');
+
+// Route::middleware('jwt')->post('/galleries', 'GalleryController@store');
+
+// Route::middleware('jwt')->get('/galleries/{id}', 'GalleryController@show');
+
+// Route::middleware('jwt')->put('/galleries/{id}', 'GalleryController@update');
+
+// Route::middleware('jwt')->delete('/galleries/{id}', 'GalleryController@destroy') ;
+
+// middleware('jwt.auth')->
+
+// Route::middleware('jwt')->resource('galleries', 'GalleryController');
