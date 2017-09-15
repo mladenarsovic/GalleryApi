@@ -26,6 +26,8 @@ Route::resource('galleries','GalleryController');
 
 Route::post('comments','CommentController@store');
 
+Route::middleware('jwt.auth')->get('users/{user}/galleries','UsersController@show');
+
 
 
 // Route::get('galleries/{id}', 'GalleriesController@show');

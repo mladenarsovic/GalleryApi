@@ -45,9 +45,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $id)
+    public function show(User $user)
     {
-        return User::findOrFail($id);
+        return $user->galleries()->with('images','comments')->latest()->get();
     }
     /**
      * Show the form for editing the specified resource.
