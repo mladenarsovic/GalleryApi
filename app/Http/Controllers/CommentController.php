@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Gallery;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,7 +15,7 @@ class CommentController extends Controller
      */
     public function index($id)
     {
-        return Comment::with('user')->where('galery_id',$id)->get();
+        return Comment::with('user')->where('gallery_id',$id)->get();
     }
 
     /**
@@ -36,11 +37,11 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $comment = new Comment;
-        $gallery = new Galery;
+        $gallery = new Gallery;
 
         $comment->content = request()->input('content');
         $comment->user_id = request()->input('user_id');
-        $comment->galery_id = request()->input('galery_id');
+        $comment->galleries_id = request()->input('gallery_id');
         $comment->save();
         return $comment;
     }

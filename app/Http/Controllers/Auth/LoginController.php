@@ -55,6 +55,8 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         
-        return response()->json(['token' => $token]);
+        \JWTAuth::setToken($token);
+        $user = \JWTAuth::toUser($token);
+        return response()->json(['token' => $token, 'user'=> $user]);
     }
 }

@@ -24,6 +24,8 @@ Route::post('register','Auth\RegisterController@create');
 
 Route::resource('galleries','GalleryController');
 
+Route::post('comments','CommentController@store');
+
 
 
 // Route::get('galleries/{id}', 'GalleriesController@show');
