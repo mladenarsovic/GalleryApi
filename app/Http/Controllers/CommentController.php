@@ -12,9 +12,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return Comment::all();
+        return Comment::with('user')->where('galery_id',$id)->get();
     }
 
     /**
@@ -35,7 +35,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        return Comment::create($request::all());
+        $comment = new Comment;
+        $gallery = new Galery;
+
+        $comment->content = request()->input('content');
+        $comment->user_id = request()->input('user_id');
+        $comment->galery_id = request()->input('galery_id');
+        $comment->save();
+        return $comment;
     }
 
     /**
@@ -69,7 +76,9 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $comment->update($request->all());
+        return $comment;
     }
 
     /**
