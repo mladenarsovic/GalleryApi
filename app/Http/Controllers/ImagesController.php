@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use Illuminate\Http\Request;
+use App\Image;
 
 class ImagesController extends Controller
 {
@@ -14,9 +14,8 @@ class ImagesController extends Controller
      */
     public function index()
     {
-        return Image::all();
+         return Image::all();
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +25,6 @@ class ImagesController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,53 +33,52 @@ class ImagesController extends Controller
      */
     public function store(Request $request)
     {
-        return Image::create($request::all());
+        $image = new Image;
+        $image->image_url = request()->input('image_url');
+        // $picture->galery_id = request()->input('galery_id');
+        $image->gallery_id = 1;
+        $image->save();
+        return $picture;
     }
-
     /**
      * Display the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $id)
-    {
-        return Gallery::findOrFail($id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Gallery  $gallery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Image $id)
+    public function show($id)
     {
         //
     }
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $id)
+    public function update(Request $request, $id)
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $id)
+    public function destroy($id)
     {
-        $image = Image::findOrFail($id);
-        $image->delete();
-        return $image;
+        //
     }
 }

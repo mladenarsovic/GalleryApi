@@ -14,10 +14,10 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Gallery::class, function (Faker $faker) {
-   
     return [
         'name' => $faker->sentences(1,true),
         'description' => $faker->text(200),
-        'user_id' => $faker->numberBetween(1,10),
+        'user_id' => $faker->numberBetween(1,10), 
     ];
 });
+

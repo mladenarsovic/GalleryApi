@@ -24,7 +24,7 @@ class Gallery extends Model
     
     public function comments()
     {
-         return $this->hasMany(Comment::class, 'galleries_id');
+         return $this->hasMany(Comment::class, 'gallery_id');
     }
    
 }

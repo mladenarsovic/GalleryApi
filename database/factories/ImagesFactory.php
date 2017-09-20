@@ -12,11 +12,9 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-
 $factory->define(App\Image::class, function (Faker $faker) {
-   
     return [
         'image_url' => $faker->imageUrl($width = 350, $height = 280),
-        'gallery_id' => $faker->numberBetween(1,10),
+        'gallery_id' => $faker->numberBetween(1,10), 
     ];
 });

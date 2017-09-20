@@ -14,10 +14,10 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Comment::class, function (Faker $faker) {
-   
     return [
-        'content' => $faker->sentence(6, true),
-        'user_id' => $faker->numberBetween(1,10),
-        'galleries_id' => $faker->numberBetween(1,10),
+        'content' => $faker->text(200),
+        'gallery_id' => $faker->numberBetween(1,10), 
+        'user_id' => $faker->numberBetween(1,10), 
     ];
 });
+

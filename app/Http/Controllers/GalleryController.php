@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Gallery;
 use Illuminate\Http\Request;
+use App\Gallery;
+use App\Image;
+use App\User;
 
 class GalleryController extends Controller
 {
@@ -14,9 +15,13 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        return Gallery::with('images','user')->get();
+       return Gallery::latest()->with('images','user','comments.user')->paginate(6);
     }
 
+    public function userGalleries(User $user)
+    {
+        return $user->galleries()->with('images','comments')->latest()->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,64 +31,83 @@ class GalleryController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Galleries $request)
+    public function store(Request $request)
     {
-        return Gallery::create($request::all());
-    }
+        // \Log::info($request->all());
+        $gallery = new Gallery;
+        $picture = new Image;
+        $gallery->name = request()->input('name');
+        $gallery->description = request()->input('description');
+        $gallery->user_id = request()->input('user_id');       
+        $gallery->save();
 
+        foreach ($request->input('image_url') as $image) {
+            // \Log::info($image);
+            $gallery->images()->create(['image_url' => $image]);
+        }
+        return $gallery;
+    }
     /**
      * Display the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Gallery $gallery)
+    public function show($id)
     {
-        return $gallery->load(['images', 'user', 'comments.user']);
+        return Gallery::with('user', 'images', 'comments.user')->findOrFail($id);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gallery $id)
+    public function edit($id)
     {
-        
+        //
     }
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gallery $id)
+    public function update(Request $request, $id)
     {
         $gallery = Gallery::findOrFail($id);
         $gallery->update($request->all());
         return $gallery;
     }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Gallery  $gallery
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $id)
+
+    public function destroy($id)
     {
-        $gallery = User::findOrFail($id);
+        $gallery = Gallery::findOrFail($id);
         $gallery->delete();
         return $gallery;
+    }
+
+    public function indexId()
+    {
+        return Gallery::latest()->first();
+    }
+
+    public function search($term)
+    {
+    
+        return Gallery::where('name', 'like', '%' . $term . '%')->with(['images', 'user'])->paginate(6);
     }
 }

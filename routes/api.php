@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,25 +11,23 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-Route::post('login', 'Auth\LoginController@authenticate');
-
 Route::post('register','Auth\RegisterController@create');
+Route::post('login','Auth\LoginController@authenticate');
+Route::get('galleries','GalleryController@index');
+Route::middleware('jwt.auth')->resource('gallery','GalleryController');
+Route::middleware('jwt.auth')->resource('my-gallery','GalleryController@index');
+Route::get('search/{term}', 'GalleryController@search');
+Route::middleware('jwt.auth')->get('users/{user}/galleries','GalleryController@userGalleries');
+Route::middleware('jwt.auth')->resource('users','UsersController');
+Route::middleware('jwt.auth')->resource('images','ImagesController');
+Route::resource('comments','CommentsController');
 
-Route::resource('galleries','GalleryController');
 
-Route::post('comments','CommentController@store');
-
-Route::middleware('jwt.auth')->get('users/{user}/galleries','UsersController@show');
-
-
-
-// Route::get('galleries/{id}', 'GalleriesController@show');
+Route::middleware('jwt.auth')->get('galleries/{id}', 'GalleriesController@show');
+// Route::middleware('jwt.auth')->get('gallery/{id}', 'GalleriesController@show');
 
 // Route::get('/galleries', 'GalleryController@index');
 
